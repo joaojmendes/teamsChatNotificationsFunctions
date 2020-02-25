@@ -61,7 +61,7 @@ const encryptioncertificate = getEnviromentVariable('encryptioncertificate');
           expirationDateTime: moment()
             .add(30, 'minutes')
             .toISOString(),
-          clientState: `ID_${chatId}`,
+          clientState: `${chatId}`,
           encryptionCertificate: encryptioncertificate,
           encryptionCertificateId: 'teamsChat',
           includeResourceData: true
