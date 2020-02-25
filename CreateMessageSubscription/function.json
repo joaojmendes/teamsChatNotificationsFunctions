@@ -1,0 +1,34 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "get",
+        "post"
+      ]
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    },
+    {
+      "name": "TeamsChatWriteEntities",
+      "type": "table",
+      "tableName": "TeamsChatSubsScriptions",
+      "connection": "AZURE_STORAGE_CONNECTION_STRING",
+      "direction": "out"
+    },
+    {
+      "name": "TeamsChatReadEntities",
+      "type": "table",
+      "tableName": "TeamsChatSubsScriptions",
+      "connection": "AZURE_STORAGE_CONNECTION_STRING",
+      "direction": "in"
+    }
+  ],
+  "scriptFile": "../dist/CreateMessageSubscription/index.js"
+}
