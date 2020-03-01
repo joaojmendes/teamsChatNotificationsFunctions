@@ -23,20 +23,25 @@ const httpTrigger: AzureFunction = async function(context: Context, req: HttpReq
   if (chatId) {
     try {
       // Try to Get a Saved ChatId from Table Storage
+      context.log('Trying create Subscription for chat id)', chatId);
       const _returnSubsEntity: IReturnEntity = await dataService.getEntity('TeamsChats', chatId);
       if (!_returnSubsEntity) { 
-
+          context.log('creating subscription');
         // New CHatId add subscriptions and add to Table Storage
           _subsResult  = await addSubscription(chatId);
+          context.log('subscription created', _subsResult.id);
       } else {
         // subs exist in Table , check expeiration Date 
+        context.log('subscription experied, create new');
         _subscriptionId = _returnSubsEntity.SubscriptionId;
         const _expired:boolean = moment(_returnSubsEntity.ExpirationDateTime).isBefore(moment());
         // exprired ? Add new subscriptions
         if (_expired){
+          context.log('subscription experied, create new');
           _subsResult  = await addSubscription(chatId);
         }else{
           // update subscriptions expiration date
+          context.log('Update subscription');
           _subsResult  = await updateSubscription(_subscriptionId);
            
         }
@@ -49,7 +54,7 @@ const httpTrigger: AzureFunction = async function(context: Context, req: HttpReq
         SubscriptionId: _subsResult.id,
         ExpirationDateTime: _subsResult.expirationDateTime
       };
-      console.log('entity', _entity);
+      context.log('entity', _entity);
       await dataService.insertOrUpdateEntity(_entity);
 
       context.res = {
@@ -57,8 +62,9 @@ const httpTrigger: AzureFunction = async function(context: Context, req: HttpReq
         body:  { subscriptionId : _subsResult.id }
       };
     } catch (error) {
+      context.log(error);
       context.res = {
-        status: 400,
+        status: error.status,
         body: JSON.stringify(error)
       };
     }

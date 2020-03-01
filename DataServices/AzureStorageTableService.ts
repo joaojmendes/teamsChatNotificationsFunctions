@@ -26,7 +26,7 @@ class DataService {
             'Content-Type': 'application/json;odata=nometadata'
           },
           body: {
-            TABLE_NAME: this.TABLE_NAME
+            TableName: this.TABLE_NAME
           },
           json: true,
           resolveWithFullResponse: true

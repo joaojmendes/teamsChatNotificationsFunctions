@@ -12,6 +12,7 @@ const clientId: string = getEnviromentVariable('AppClientId');
 const clientSecret: string = getEnviromentVariable('AppClientSecret');
 const ChatMessageNotificationURL = getEnviromentVariable('ChatMessageNotificationURL');
 const encryptioncertificate = getEnviromentVariable('encryptioncertificate');
+const tenantId = getEnviromentVariable('TenantId');
 /**
    *  Get Access Token to MSGraph
    *
@@ -20,7 +21,9 @@ const encryptioncertificate = getEnviromentVariable('encryptioncertificate');
   export async function getAccessToken(): Promise<string> {
     let options = {
       method: 'POST',
-      uri: 'https://login.microsoftonline.com/a0cb7b70-2a99-4bf1-b92a-ee32ca12fb3d/oauth2/v2.0/token',
+      //uri: 'https://login.microsoftonline.com/common/oauth2/v2.0/token',
+      uri: `https://login.microsoftonline.com/${tenantId}/oauth2/v2.0/token`,
+     // uri: 'https://login.microsoftonline.com/a0cb7b70-2a99-4bf1-b92a-ee32ca12fb3d/oauth2/v2.0/token',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
@@ -67,7 +70,6 @@ const encryptioncertificate = getEnviromentVariable('encryptioncertificate');
           includeResourceData: true
         })
       };
-      console.log(options);
       const results = await request(options);
       return JSON.parse(results);
 
