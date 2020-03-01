@@ -28,8 +28,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
             "target": "newMessage",
             "arguments": [ req.body ]
           }];
-       }
-        
+       }      
     }  
 };
 

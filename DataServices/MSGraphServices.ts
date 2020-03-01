@@ -21,7 +21,6 @@ const tenantId = getEnviromentVariable('TenantId');
   export async function getAccessToken(): Promise<string> {
     let options = {
       method: 'POST',
-      //uri: 'https://login.microsoftonline.com/common/oauth2/v2.0/token',
       uri: `https://login.microsoftonline.com/${tenantId}/oauth2/v2.0/token`,
      // uri: 'https://login.microsoftonline.com/a0cb7b70-2a99-4bf1-b92a-ee32ca12fb3d/oauth2/v2.0/token',
       headers: {
@@ -62,7 +61,7 @@ const tenantId = getEnviromentVariable('TenantId');
           notificationUrl: ChatMessageNotificationURL,
           resource: `/chats/${chatId}/messages`,
           expirationDateTime: moment()
-            .add(30, 'minutes')
+            .add(55, 'minutes')
             .toISOString(),
           clientState: `${chatId}`,
           encryptionCertificate: encryptioncertificate,
@@ -78,6 +77,13 @@ const tenantId = getEnviromentVariable('TenantId');
     }
   }
 
+  /**
+   *   Update Web hook expiration date and time
+   *
+   * @export
+   * @param {string} subscriptionId
+   * @returns {Promise<ISubscriptionResult>}
+   */
   export async function updateSubscription(subscriptionId: string): Promise<ISubscriptionResult> {
     let accessToken = await getAccessToken();
     
