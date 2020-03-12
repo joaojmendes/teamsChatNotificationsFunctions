@@ -11,31 +11,38 @@ and has details of what services must have to be defined in Azure and the Azure 
 
 ## Azure Services need to be configured 
 
-- ### Azure SignalR 
+### Azure SignalR 
 
-      To send notification to SPFx Teams Notification Application Customizer.
-      The SignalR Service must br create as ServerLess.
+    - To send notification to SPFx Teams Notification Application Customizer.
+    - The SignalR Service must br create as ServerLess.
+    
 
-      ![signalR](./assets/signalr1.png)
+  ![signalR](./assets/signalr1.png)
 
-- ### Azure Storage 
 
-      We use table storage to save information about chat subscriptions, the Functions use Azure Storage Table REST API to read and write data, the authentication that is used is SAS - Shared Access Assignature Connection String that must be generated.
+### Azure Storage 
+
+      - We use table storage to save information about chat subscriptions, the Functions use Azure Storage Table REST API to read and write data, the authentication that is used is SAS - Shared Access Assignature Connection String that must be generated.
 
       The Table is created automaticaly by the function.
 
-- ### Azure Functions App 
+ ### Azure Functions App 
 
     - In the CORS options you have to enable "Enable Access-Control-Allow-Credentials"  that is need by SignalR
     - In the Plataform Features Tab select Identity in System Assigned Tab on Status Click Enable 
 
-- Register a new App Principal on AAD and add the API Permissions SCOPES - Chat.Read.All and User.Read
+### Register a new App Principal 
 
-- ### Azure Key Vault 
+    - on AAD and add the API Permissions SCOPES - Chat.Read.All and User.Read
+
+### Azure Key Vault 
+
     - Create Self-Signed Certificate
     - Export Certificate CER
 
+
 ## Configuration local.setting.json 
+
 
 Environment Variable | Required Value
 --------------------|------------------------------------ 
