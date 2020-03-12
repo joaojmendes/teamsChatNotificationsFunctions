@@ -22,30 +22,27 @@ and has details of what services must have to be defined in Azure and the Azure 
 
 ### Azure Storage 
 
-      We use table storage to save information about chat subscriptions, the Functions use Azure Storage Table REST API to read and write data, the authentication that is used is SAS - Shared Access Assignature Connection String that must be generated.
+We use table storage to save information about chat subscriptions, the Functions use Azure Storage Table REST API to read and write data, the authentication that is used is SAS - Shared Access Assignature Connection String that must be generated.
 
      
-  ![signalR](./assets/storage.png)
+![signalR](./assets/storage.png)
      
-     
-     The Table is created automaticaly by the function.
-
-
+    
 
  ### Azure Functions App 
 
-    In the CORS options you have to enable "Enable Access-Control-Allow-Credentials"  that is need by SignalR
-    In the Plataform Features Tab select Identity in System Assigned Tab on Status Click Enable this will create a Service Principal on AAD that will use to connect Azure Key Vault.
+In the CORS options you have to enable "Enable Access-Control-Allow-Credentials"  that is need by SignalR
+In the Plataform Features Tab select Identity in System Assigned Tab on Status Click Enable this will create a Service Principal on AAD that will use to connect Azure Key Vault.
 
 ### Register a new App Principal 
 
-    Create a APP Princippal on AAD and add the API Permissions SCOPES - Chat.Read.All and User.Read
+Create a APP Princippal on AAD and add the API Permissions SCOPES - Chat.Read.All and User.Read
 
 ### Azure Key Vault 
 
-    Create Self-Signed Certificate,  Export Certificate CER, create secrets to Client Id , Client Secret and Certifricate Exported ( content of CER file).
+Create Self-Signed Certificate,  Export Certificate CER, create secrets to Client Id , Client Secret and Certifricate Exported ( content of CER file).
 
-    Add Access Police to Allow the Microsoft Identity created on Azure Function App to access Key Vault.
+Add Access Police to Allow the Microsoft Identity created on Azure Function App to access Key Vault.
 
 
 
