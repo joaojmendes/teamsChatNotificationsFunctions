@@ -15,8 +15,8 @@ and has details of what services must have to be defined in Azure and the Azure 
 
 ### Azure SignalR 
 
-    To send notification to SPFx Teams Notification Application Customizer.
-    The SignalR Service must be create as ServerLess.
+To send notification to SPFx Teams Notification Application Customizer.
+The SignalR Service must be create as ServerLess.
 
 
   ![signalR](./assets/signalr1.png)
