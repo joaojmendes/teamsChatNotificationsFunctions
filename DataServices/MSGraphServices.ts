@@ -9,8 +9,9 @@ import * as nodeRSA from 'node-rsa';
 
 const keyVaultClientIdSecretName: string = getEnviromentVariable('KeyVault_ClientId_Secret_Name');
 const keyVaultClientSecretSecretName: string = getEnviromentVariable('KeyVault_ClientSecret_Secret_Name');
-const keyVaultEncriptionCertificateSecretName = getEnviromentVariable('KeyVault_EncriptionCertificate_Secret_Name');
-const chatMessageNotificationURL = getEnviromentVariable('chatMessageNotificationURL');
+const keyVaultEncriptionCertificateSecretName:string = getEnviromentVariable('KeyVault_EncriptionCertificate_Secret_Name');
+const chatMessageNotificationURL:string = getEnviromentVariable('chatMessageNotificationURL');
+
 //const encryptionCertificate = getEnviromentVariable('encryptioncertificate');
 const tenantId = getEnviromentVariable('TenantId');
 /**
