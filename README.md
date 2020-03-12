@@ -1,5 +1,7 @@
 # SPFx Teams Notifications Application Customizer  - Azure Functions
 
+![signalR](./assets/TeamsNotification.png)
+
 ## Summary
 This Project is part of SPFx Teams Notifications Application Customizer 
 and has details of what services must have to be defined in Azure and the Azure Functions to deploy.
