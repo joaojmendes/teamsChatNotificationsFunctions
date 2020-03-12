@@ -51,6 +51,19 @@ Create a APP Princippal on AAD and add the API Permissions SCOPES - Chat.Read.Al
 
 Create Self-Signed Certificate,  Export Certificate CER, create secrets to Client Id , Client Secret and Certifricate Exported ( content of CER file).
 
+Create Self-Signed Certificate,
+
+![signalR](./assets/keyvaultCertificate.png)
+
+Export Certificate CER
+
+![signalR](./assets/exportCert.png)
+
+Create Secrets
+
+
+
+
 Add Access Police to Allow the Microsoft Identity created on Azure Function App to access Key Vault.
 
 
