@@ -22,7 +22,7 @@ and has details of what services must have to be defined in Azure and the Azure 
 
 ### Azure Storage 
 
-We use table storage to save information about chat subscriptions, the Functions use Azure Storage Table REST API to read and write data, the authentication that is used is SAS - Shared Access Assignature Connection String that must be generated.
+We use table storage to save information about chat subscriptions, the Functions use Azure Storage Table REST API to read and write data, the Connection String that is used is SAS - Shared Access Assignature and must be generated.
 
      
 ![signalR](./assets/storage.png)
@@ -32,11 +32,20 @@ We use table storage to save information about chat subscriptions, the Functions
  ### Azure Functions App 
 
 In the CORS options you have to enable "Enable Access-Control-Allow-Credentials"  that is need by SignalR
+
+![signalR](./assets/cors.png)
+
 In the Plataform Features Tab select Identity in System Assigned Tab on Status Click Enable this will create a Service Principal on AAD that will use to connect Azure Key Vault.
+
+![signalR](./assets/msi.png)
+
 
 ### Register a new App Principal 
 
 Create a APP Princippal on AAD and add the API Permissions SCOPES - Chat.Read.All and User.Read
+
+![signalR](./assets/app.png)
+
 
 ### Azure Key Vault 
 
