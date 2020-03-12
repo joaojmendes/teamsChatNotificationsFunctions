@@ -3,12 +3,10 @@
 //
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 
-
-
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     context.log('HTTP trigger function processed a request.');
     const validationToken = (req.query.validationToken || (req.body && req.body.validationToken));
-   // Validate Token on register subscription
+   // Validate Token on activate webhook
     if (validationToken) {
        
         context.log(validationToken);
@@ -18,7 +16,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         };
     }
     else { // send change to signalR to boardcast change to clients
-        context.log("data:",req.body);
+        
        if ( req.body.value.length > 0) {
         context.log(req.body.value);
         context.res = {

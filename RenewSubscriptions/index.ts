@@ -7,10 +7,10 @@ import { IReturnEntity } from '../DataServices/IReturnEntity';
 import { ISubscriptionResult } from '../DataServices/ISubscriptionResult';
 import { IEntity } from '../DataServices/IEntity';
 
-const AZURE_STORAGE_URI = getEnviromentVariable('Azure_Storage_URI');
-const AZURE_STORAGE_SAS = getEnviromentVariable('Azure_Storage_SAS');
-const TABLE_NAME = getEnviromentVariable('TableName');
-const dataService = new DataService(TABLE_NAME, AZURE_STORAGE_URI, AZURE_STORAGE_SAS);
+const azure_storage_uri = getEnviromentVariable('azure_storage_uri');
+const azure_storage_sas = getEnviromentVariable('azure_storage_sas');
+const table_name = getEnviromentVariable('TableName');
+const dataService = new DataService(table_name, azure_storage_uri, azure_storage_sas);
 
 const timerTrigger: AzureFunction = async function(context: Context, myTimer: any): Promise<void> {
   let timeStamp = new Date().toISOString();
@@ -35,7 +35,7 @@ const timerTrigger: AzureFunction = async function(context: Context, myTimer: an
           };
           await dataService.insertOrUpdateEntity(_entity);
           context.log(
-            `Renew Subscriptions  created new Id: ${_subsEntity.SubscriptionId}  expired DateTime: ${_subsResult.expirationDateTime}`
+            `Renew Subscriptions:  created new Id: ${_subsEntity.SubscriptionId}  expired DateTime: ${_subsResult.expirationDateTime}`
           );
         } else {
           const _willExpired: boolean = moment(_subsEntity.ExpirationDateTime).isBefore(moment().subtract(15, 'minute'));

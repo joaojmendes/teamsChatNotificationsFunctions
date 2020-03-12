@@ -7,11 +7,11 @@ import { addSubscription, updateSubscription } from '../DataServices/MSGraphServ
 import { IReturnEntity } from '../DataServices/IReturnEntity';
 import { getEnviromentVariable } from '../Common/Utils';
 
-const AZURE_STORAGE_URI = getEnviromentVariable('Azure_Storage_URI');
-const AZURE_STORAGE_SAS = getEnviromentVariable('Azure_Storage_SAS');
-const TABLE_NAME = getEnviromentVariable('TableName');
+const azure_storage_uri = getEnviromentVariable('azure_storage_uri');
+const azure_storage_sas = getEnviromentVariable('azure_storage_sas');
+const table_name = getEnviromentVariable('TableName');
 
-const dataService = new DataService(TABLE_NAME, AZURE_STORAGE_URI, AZURE_STORAGE_SAS);
+const dataService = new DataService(table_name, azure_storage_uri, azure_storage_sas);
 
 const httpTrigger: AzureFunction = async function(context: Context, req: HttpRequest): Promise<void> {
   context.log('HTTP trigger function processed a request.');
@@ -25,30 +25,28 @@ const httpTrigger: AzureFunction = async function(context: Context, req: HttpReq
       // Try to Get a Saved ChatId from Table Storage
       context.log('Trying create Subscription for chat id)', chatId);
       const _returnSubsEntity: IReturnEntity = await dataService.getEntity('TeamsChats', chatId);
-      if (!_returnSubsEntity) { 
-          context.log('creating subscription');
+      if (!_returnSubsEntity) {
+        context.log('creating subscription');
         // New CHatId add subscriptions and add to Table Storage
-          _subsResult  = await addSubscription(chatId);
-          context.log('subscription created', _subsResult.id);
+        _subsResult = await addSubscription(chatId);
+        context.log('subscription created', _subsResult.id);
       } else {
-        // subs exist in Table , check expeiration Date 
-        context.log('subscription experied, create new');
+        // subs exist in Table , check expeiration Date
         _subscriptionId = _returnSubsEntity.SubscriptionId;
-        const _expired:boolean = moment(_returnSubsEntity.ExpirationDateTime).isBefore(moment());
+        const _expired: boolean = moment(_returnSubsEntity.ExpirationDateTime).isBefore(moment());
         // exprired ? Add new subscriptions
-        if (_expired){
+        if (_expired) {
           context.log('subscription experied, create new');
-          _subsResult  = await addSubscription(chatId);
-        }else{
+          _subsResult = await addSubscription(chatId);
+        } else {
           // update subscriptions expiration date
           context.log('Update subscription');
-          _subsResult  = await updateSubscription(_subscriptionId);
-           
+          _subsResult = await updateSubscription(_subscriptionId);
         }
       }
-     
-     // update Table with new data
-        _entity  = {
+
+      // update Table with new data
+      _entity = {
         PartitionKey: 'TeamsChats',
         RowKey: chatId,
         SubscriptionId: _subsResult.id,
@@ -59,12 +57,12 @@ const httpTrigger: AzureFunction = async function(context: Context, req: HttpReq
 
       context.res = {
         // status: 200, /* Defaults to 200 */
-        body:  { subscriptionId : _subsResult.id }
+        body: { subscriptionId: _subsResult.id }
       };
     } catch (error) {
       context.log(error);
       context.res = {
-        status: error.status,
+        status: 400,
         body: JSON.stringify(error)
       };
     }

@@ -1,10 +1,9 @@
 import * as request from 'request-promise';
-import { getEnviromentVariable } from '../Common/Utils';
 import { IReturnEntity } from './IReturnEntity';
 import { IEntity } from './IEntity';
 
 class DataService {
-  constructor(private TABLE_NAME: string, private AZURE_STORAGE_URI: string, private AZURE_STORAGE_SAS: string) {}
+  constructor(private table_name: string, private azure_storage_uri: string, private azure_storage_sas: string) {}
 
   /**
    *  Create Table
@@ -16,9 +15,9 @@ class DataService {
     try {
       const tableExists: boolean = await this.checkIfTableExists();
       if (tableExists) {
-        return this.TABLE_NAME;
+        return this.table_name;
       } else {
-        const URI: string = `${this.AZURE_STORAGE_URI}/tables?${this.AZURE_STORAGE_SAS}`;
+        const URI: string = `${this.azure_storage_uri}/tables?${this.azure_storage_sas}`;
         let options = {
           method: 'POST',
           uri: URI,
@@ -26,14 +25,14 @@ class DataService {
             'Content-Type': 'application/json;odata=nometadata'
           },
           body: {
-            TableName: this.TABLE_NAME
+            TableName: this.table_name
           },
           json: true,
           resolveWithFullResponse: true
         };
         const results = await request(options);
         const tablesResult = JSON.parse(results);
-        return tablesResult.TABLE_NAME;
+        return tablesResult.table_name;
       }
     } catch (error) {
       throw new Error(error);
@@ -48,7 +47,7 @@ class DataService {
    */
   public async checkIfTableExists(): Promise<boolean> {
     try {
-      const URI: string = `${this.AZURE_STORAGE_URI}/tables?$filter=TableName eq '${this.TABLE_NAME}'&${this.AZURE_STORAGE_SAS}`;
+      const URI: string = `${this.azure_storage_uri}/tables?$filter=TableName eq '${this.table_name}'&${this.azure_storage_sas}`;
       let options = {
         method: 'GET',
         uri: URI,
@@ -76,7 +75,7 @@ class DataService {
     try {
       await this.createTableIfNotExists();
 
-      const URI: string = `${this.AZURE_STORAGE_URI}/${this.TABLE_NAME}?${this.AZURE_STORAGE_SAS}`;
+      const URI: string = `${this.azure_storage_uri}/${this.table_name}?${this.azure_storage_sas}`;
       let options = {
         method: 'POST',
         uri: URI,
@@ -112,7 +111,7 @@ class DataService {
     try {
       await this.createTableIfNotExists();
 
-      const URI: string = `${this.AZURE_STORAGE_URI}/${this.TABLE_NAME}(PartitionKey='${entity.PartitionKey}', RowKey='${entity.RowKey}')?${this.AZURE_STORAGE_SAS}`;
+      const URI: string = `${this.azure_storage_uri}/${this.table_name}(PartitionKey='${entity.PartitionKey}', RowKey='${entity.RowKey}')?${this.azure_storage_sas}`;
       let options = {
         method: 'PUT',
         uri: URI,
@@ -146,7 +145,7 @@ class DataService {
     try {
       await this.createTableIfNotExists();
 
-      const URI: string = `${this.AZURE_STORAGE_URI}/${this.TABLE_NAME}(PartitionKey='${entity.PartitionKey}', RowKey='${entity.RowKey}')?${this.AZURE_STORAGE_SAS}`;
+      const URI: string = `${this.azure_storage_uri}/${this.table_name}(PartitionKey='${entity.PartitionKey}', RowKey='${entity.RowKey}')?${this.azure_storage_sas}`;
       let options = {
         method: 'PUT',
         uri: URI,
@@ -181,7 +180,7 @@ class DataService {
     try {
       await this.createTableIfNotExists();
 
-      const URI: string = `${this.AZURE_STORAGE_URI}/${this.TABLE_NAME}(PartitionKey='${entity.PartitionKey}', RowKey='${entity.RowKey}')?${this.AZURE_STORAGE_SAS}`;
+      const URI: string = `${this.azure_storage_uri}/${this.table_name}(PartitionKey='${entity.PartitionKey}', RowKey='${entity.RowKey}')?${this.azure_storage_sas}`;
       let options = {
         method: 'DELETE',
         uri: URI,
@@ -208,7 +207,7 @@ class DataService {
     try {
       await this.createTableIfNotExists();
 
-      const URI: string = `${this.AZURE_STORAGE_URI}/${this.TABLE_NAME}(PartitionKey='${partitionKey}', RowKey='${rowKey}')?${this.AZURE_STORAGE_SAS}`;
+      const URI: string = `${this.azure_storage_uri}/${this.table_name}(PartitionKey='${partitionKey}', RowKey='${rowKey}')?${this.azure_storage_sas}`;
       console.log('URI', URI);
       let options = {
         method: 'GET',
@@ -246,7 +245,7 @@ class DataService {
       if (query){
         _query=`&$filter=${query}`;
       }
-      const URI: string = `${this.AZURE_STORAGE_URI}/${this.TABLE_NAME}()?${this.AZURE_STORAGE_SAS}${_query}`;
+      const URI: string = `${this.azure_storage_uri}/${this.table_name}()?${this.azure_storage_sas}${_query}`;
       let options = {
         method: 'GET',
         uri: URI,
