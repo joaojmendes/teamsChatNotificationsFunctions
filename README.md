@@ -66,9 +66,9 @@ Create Secrets
 
 Add Access Police to Allow the Microsoft Identity created on Azure Function App to access Key Vault.
 
-![signalR](./assets/accesspolice1.png)
+![signalR](./assets/AccessPolice1.png)
 
-![signalR](./assets/accesspolice2.png)
+![signalR](./assets/AccessPolice2.png)
 
 ## Configuration local.setting.json 
 
