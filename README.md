@@ -4,20 +4,34 @@
 This Project is part of SPFx Teams Notifications Application Customizer 
 and has details of what services must have to be defined in Azure and the Azure Functions to deploy.
 
- 
-## Azure Services need to be configured
+## High-level schema how it works
 
-- Azure SignalR
+![signalR](./assets/diagram.png)
 
-- Azure Storage - we use Table Storage to save data - the Functions use Azure Storage Table REST API to read and write data, the authentication that is used is SAS - Shared Access Assignature Connection String that must be generated. the Table is created automaticaly by the function.
 
-- Azure Functions App 
-    - In the CORS options you have to enable Enable Access-Control-Allow-Credentials  that is need by SignalR
+## Azure Services need to be configured 
+
+- ### Azure SignalR 
+
+      To send notification to SPFx Teams Notification Application Customizer.
+      The SignalR Service must br create as ServerLess.
+
+      ![signalR](./assets/signalr1.png)
+
+- ### Azure Storage 
+
+      We use table storage to save information about chat subscriptions, the Functions use Azure Storage Table REST API to read and write data, the authentication that is used is SAS - Shared Access Assignature Connection String that must be generated.
+
+      The Table is created automaticaly by the function.
+
+- ### Azure Functions App 
+
+    - In the CORS options you have to enable "Enable Access-Control-Allow-Credentials"  that is need by SignalR
     - In the Plataform Features Tab select Identity in System Assigned Tab on Status Click Enable 
 
 - Register a new App Principal on AAD and add the API Permissions SCOPES - Chat.Read.All and User.Read
 
-- Azure Key Vault 
+- ### Azure Key Vault 
     - Create Self-Signed Certificate
     - Export Certificate CER
 
@@ -40,7 +54,7 @@ ChatMessageNotificationURL| < https://xxxxxxxxxx.azurewebsites.net/api/TeamsChat
 
 Solution|Author(s)
 --------|---------
-SPFx - Teams Notifications Application Customizer
+SPFx - Teams Notifications Application Customizer Azure Functions 
 
 ## Version history
 
