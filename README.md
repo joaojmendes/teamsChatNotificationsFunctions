@@ -7,7 +7,7 @@ and has details of what services must have to be defined in Azure and the Azure 
  
 ## Azure Services need to be configured
 
--Azure SignalR
+- Azure SignalR
 
 - Azure Storage - we use Table Storage to save data - the Functions use Azure Storage Table REST API to read and write data, the authentication that is used is SAS - Shared Access Assignature Connection String that must be generated. the Table is created automaticaly by the function.
 
@@ -23,17 +23,17 @@ and has details of what services must have to be defined in Azure and the Azure 
 
 ## Configuration local.setting.json 
 
-environment variable| Sample  
+Environment Variable | Required Value
 --------------------|------------------------------------ 
-Azure_Storage_URI | Azure Table Storage URI 
-Azure_Storage_SAS |  | Table Storage SAS connection String
+Azure_Storage_URI | < Azure Table Storage URI >
+Azure_Storage_SAS | < Table Storage SAS connection String >
 TableName|  TeamsChatSubsScriptions 
-TenantId| |  Tenant Id 
-KeyVaultUrl | https|//xxxxxxxx.vault.azure.net/ 
-KeyVault_ClientId_Secret_Name |TeamsChatNotificationsClientId 
-KeyVault_ClientSecret_Secret_Name | TeamsChatNotificationsClientSecret
-KeyVault_EncriptionCertificate_Secret_Name | TeamsChatNotificationEncryptionCertificate 
-ChatMessageNotificationURL| https|//xxxxxxxxxx.azurewebsites.net/api/TeamsChatWebhook 
+TenantId| < Tenant Id > 
+KeyVaultUrl | < https://xxxxxxxx.vault.azure.net/ >
+KeyVault_ClientId_Secret_Name | TeamsChatNotificationsClientId 
+KeyVault_ClientSecret_Secret_Name | TeamsChatNotificationsClientSecret 
+KeyVault_EncriptionCertificate_Secret_Name |  TeamsChatNotificationEncryptionCertificate 
+ChatMessageNotificationURL| < https://xxxxxxxxxx.azurewebsites.net/api/TeamsChatWebhook >
 
 
 ## Solution
