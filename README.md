@@ -77,6 +77,7 @@ Add Access Police to Allow the Microsoft Identity created on Azure Function App 
 
 Environment Variable | Required Value
 --------------------|------------------------------------ 
+AzureSignalRConnectionString:|  < AzureSignalRConnectionString >
 Azure_Storage_URI | < Azure Table Storage URI >
 Azure_Storage_SAS | < Table Storage SAS connection String >
 TableName|  TeamsChatSubsScriptions 
