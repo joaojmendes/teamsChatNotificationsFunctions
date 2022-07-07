@@ -20,7 +20,7 @@
     "@types/request-promise": "^4.1.45",
     "@types/socket.io": "^2.1.4",
     "azure-storage-legacy": "^0.11.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "node-rsa": "^1.0.7",
     "prettier": "^1.19.1",
     "request": "^2.88.0",
